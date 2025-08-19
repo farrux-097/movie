@@ -3,10 +3,11 @@ import { NavLink } from 'react-router-dom';
 import { TvMinimal,  GalleryHorizontal, Bookmark, LogIn } from 'lucide-react';
 import MovieLogo from "../../shared/assets/movie.svg"
 
+
 const Header = () => {
   return (
     <>
-    <header className='w-full h-[80px] shadow-md pt-[22px] pb-[22px]'>
+    <header className="w-full h-[80px] shadow-md pt-[22px] pb-[22px] fixed top-0 left-0 z-50 bg-black">
       <div className="container">
         <nav className='flex items-center justify-between'>
           <NavLink to={"/"}>
@@ -36,10 +37,6 @@ const Header = () => {
           </div>
         </nav>
       </div>
-      
-
-      
-      
     </header>
     </>
   );

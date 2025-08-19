@@ -1,7 +1,10 @@
 import { memo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { api } from "../../../shared/api";
-import Carusel from "../components";
+import Carusel from "../../../shared/components/carousel";
+
+import { useMovie } from "../../movies/service/useMovie";
+import MovieCarusel from "../../movies/components/movieCarusel";
 
 type MovieType = {
   id: number;
@@ -19,13 +22,18 @@ const Home = () => {
       return res.data.results as MovieType[];
     },
   });
+   const {getMovies} = useMovie()
+    const {data:movies} = getMovies()
 
   if (isLoading) return <div className="text-white text-center">Loading...</div>;
   if (isError) return <div className="text-red-500 text-center">Xatolik yuz berdi</div>;
 
   return (
-    <div className="Home">
+    <div className="Home pt-[80px] ">
       <Carusel movies={data || []} />
+      <div className="mt-[50px]">
+       < MovieCarusel movies={movies?.results}/>
+      </div>
     </div>
   );
 };
