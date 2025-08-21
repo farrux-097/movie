@@ -1,10 +1,17 @@
 import { memo } from 'react';
-
+import { Button, Result } from 'antd';
 const NotFound = () => {
   return (
     <>
-    <div className="container">
-      <h2 className='text-white text-center mt-[150px] font-bold text-[40px]'>NotFound</h2>
+    <div className="container ">
+      <div className='mt-[50px]'>
+    <Result
+    status="404"
+    title="404"
+    subTitle="Sorry, the page you visited does not exist."
+    extra={<Button type="primary">Back Home</Button>}
+  />
+      </div>
     </div>
     </>
   );

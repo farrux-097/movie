@@ -1,13 +1,17 @@
-import { memo, type FC } from "react";
+import { memo, useState, type FC } from "react";
 import Image from "../../../../shared/components/image/Image";
 import { useNavigate } from "react-router-dom";
+import { Flex, Rate } from "antd";
 
 interface Props {
   data: any[] | undefined;
 }
+const desc = ['terrible', 'bad', 'normal', 'good', 'wonderful'];
+
 
 const MovieView: FC<Props> = ({ data }) => {
   const navigate = useNavigate()
+  const [value, setValue] = useState(3);
   return (
     <div className="container grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2 gap-3">
       {data?.map((movie: any) => (
@@ -17,7 +21,11 @@ const MovieView: FC<Props> = ({ data }) => {
             </div>
             <div className="p-2">
                 <h3 className="font-bold line-clamp-1" title={movie.title}>{movie.title}</h3>
-                <p className="text-yellow-500 font-bold">⭐ {movie.vote_average}</p>
+                <Flex gap="middle" vertical>
+                  <Rate tooltips={desc} onChange={setValue} value={movie.vote_average} />
+                   {value ? <span>{desc[value - 1]}</span> : null}
+                <p className="text-yellow-500 font-bold"> {movie.vote_average}</p>
+              </Flex>
             </div>
         </div>
       ))}

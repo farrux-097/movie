@@ -1,8 +1,9 @@
 import { memo } from 'react';
 import { useParams } from 'react-router-dom';
 import { useMovie } from '../service/useMovie';
-import Image from '../../../shared/components/image/Image';
+import Imagecontainer from '../../../shared/components/image/Image';
 import MovieView from '../components/movie-view/MovieView';
+import {Image} from 'antd'
 
 const MovieDetail = () => {
   const {id} = useParams()
@@ -19,7 +20,7 @@ const MovieDetail = () => {
     <div className="MovieDetail">
       <div className='container'>
           <div >
-            <Image src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}/>
+            <Imagecontainer src={`https://image.tmdb.org/t/p/original${data.backdrop_path}`}/>
               <h2 className='text-3xl text-white'>{data?.title}</h2>
               <p className='text-2xl text-white'>{data?.status}</p>
               <p className='text-xl text-gray-400'>{data?.overview}</p>
@@ -27,7 +28,8 @@ const MovieDetail = () => {
           <div className='flex items-center justify-center flex-wrap gap-4 mb-[50px]'>
             {
               images?.backdrops?.slice(0,10)?.map((item:any , index:number) => (
-                <img key={index} src={`https://image.tmdb.org/t/p/original${item.file_path}`} width={150} alt="" />
+                // <img key={index} src={`https://image.tmdb.org/t/p/original${item.file_path}`} width={150} alt="" />
+                <Image key={index} src={`https://image.tmdb.org/t/p/original${item.file_path}`} width={150} alt=""/>
               ))
             }
           </div>
