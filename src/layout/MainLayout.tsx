@@ -6,11 +6,11 @@ import { Outlet } from 'react-router-dom';
 const MainLayout = () => {
   return (
     <>
-      <Header/>
-      <main>
-        <Outlet/>
+      <Header />
+      <main className="min-h-screen w-full pt-[80px]">
+        <Outlet />
       </main>
-      <Footer/>
+      <Footer />
     </>
   );
 };
