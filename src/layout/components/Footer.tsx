@@ -7,8 +7,8 @@ import { NavLink } from "react-router-dom";
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111111] text-gray-300">
-      <div className="container mx-auto px-6 py-10 grid grid-cols-1 md:grid-cols-3 gap-10">
+    <footer className="bg-[#111111] text-gray-300 pt-10">
+      <div className="container mx-auto px-6 grid grid-cols-1 md:grid-cols-3 gap-10">
         {/* Logo & Apps */}
         <div>
           <img src={footerLogo} alt="Logo" className="mb-6 w-[150px]" />
@@ -18,12 +18,12 @@ const Footer = () => {
           <div className="flex gap-3">
             <img
               src={playMarket}
-              className="w-[140px] h-[44px] object-contain cursor-pointer hover:opacity-80 transition"
+              className="w-[140px] h-[44px] object-contain cursor-pointer hover:opacity-80 transition duration-200"
               alt="Play Market"
             />
             <img
               src={AppStore}
-              className="w-[140px] h-[44px] object-contain cursor-pointer hover:opacity-80 transition"
+              className="w-[140px] h-[44px] object-contain cursor-pointer hover:opacity-80 transition duration-200"
               alt="App Store"
             />
           </div>
@@ -33,54 +33,20 @@ const Footer = () => {
         <div>
           <h3 className="text-white font-semibold mb-4 text-lg">Quick Links</h3>
           <ul className="flex flex-col gap-2 text-sm">
-            <li>
-              <NavLink
-                to="/"
-                className={({ isActive }) =>
-                  `transition hover:text-white ${
-                    isActive ? "text-white font-semibold" : "text-gray-300"
-                  }`
-                }
-              >
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/movies"
-                className={({ isActive }) =>
-                  `transition hover:text-white ${
-                    isActive ? "text-white font-semibold" : "text-gray-300"
-                  }`
-                }
-              >
-                Movies
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/genres"
-                className={({ isActive }) =>
-                  `transition hover:text-white ${
-                    isActive ? "text-white font-semibold" : "text-gray-300"
-                  }`
-                }
-              >
-                Genres
-              </NavLink>
-            </li>
-            <li>
-              <NavLink
-                to="/contact"
-                className={({ isActive }) =>
-                  `transition hover:text-white ${
-                    isActive ? "text-white font-semibold" : "text-gray-300"
-                  }`
-                }
-              >
-                Contact
-              </NavLink>
-            </li>
+            {["Home", "Movies", "Genres", "Contact"].map((link) => (
+              <li key={link}>
+                <NavLink
+                  to={`/${link.toLowerCase()}`}
+                  className={({ isActive }) =>
+                    `transition-colors duration-200 hover:text-white ${
+                      isActive ? "text-white font-semibold" : "text-gray-300"
+                    }`
+                  }
+                >
+                  {link}
+                </NavLink>
+              </li>
+            ))}
           </ul>
         </div>
 
@@ -88,18 +54,18 @@ const Footer = () => {
         <div>
           <h3 className="text-white font-semibold mb-4 text-lg">Follow Us</h3>
           <div className="flex gap-4">
-            <NavLink to="https://facebook.com" target="_blank">
-              <Facebook size={22} className="hover:text-white transition" />
-            </NavLink>
-            <NavLink to="https://twitter.com" target="_blank">
-              <Twitter size={22} className="hover:text-white transition" />
-            </NavLink>
-            <NavLink to="https://instagram.com" target="_blank">
-              <Instagram size={22} className="hover:text-white transition" />
-            </NavLink>
-            <NavLink to="https://youtube.com" target="_blank">
-              <Youtube size={22} className="hover:text-white transition" />
-            </NavLink>
+            <a href="https://facebook.com" target="_blank" rel="noopener noreferrer">
+              <Facebook size={22} className="hover:text-white transition-colors duration-200" />
+            </a>
+            <a href="https://twitter.com" target="_blank" rel="noopener noreferrer">
+              <Twitter size={22} className="hover:text-white transition-colors duration-200" />
+            </a>
+            <a href="https://instagram.com" target="_blank" rel="noopener noreferrer">
+              <Instagram size={22} className="hover:text-white transition-colors duration-200" />
+            </a>
+            <a href="https://youtube.com" target="_blank" rel="noopener noreferrer">
+              <Youtube size={22} className="hover:text-white transition-colors duration-200" />
+            </a>
           </div>
         </div>
       </div>

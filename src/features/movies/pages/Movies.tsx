@@ -6,59 +6,59 @@ import { useSearchParams } from 'react-router-dom';
 import { useGenre } from '../service/useGenre';
 
 const Movies = () => {
-  const {getMovies} = useMovie()
-  const {getGenres} = useGenre()
+  const { getMovies } = useMovie();
+  const { getGenres } = useGenre();
 
+  const [params, setParams] = useSearchParams();
 
-  const[params,setParams] = useSearchParams()
+  const page = params.get("page") || "1";
+  const genre = params.get("genre") || "";
 
-  // const limit = params.get("limit")  
-  // const [page, setpage] =useState(1)
+  const { data, isLoading } = getMovies({ page: page, with_genres: genre });
+  const { data: genreData } = getGenres();
 
-  const  page = params.get("page") || "1"
-  const genre =   params.get("genre") || ""
+  const options = genreData?.genres?.map(({ id, name }: any) => ({
+    value: id.toString(),
+    label: name,
+  }));
 
-  const {data,isLoading} = getMovies({page:page,with_genres:genre})
-  const {data:genreData } = getGenres()
-  const options = genreData?.genres?.map(({id,name}:any) => ({value: id.toString(),label:name}))
+  const handleChangePage = (value: number) => {
+    params.set("page", value.toString());
+    setParams(params);
+  };
 
+  const handleChangeGenre = (value: string) => {
+    params.set("genre", value);
+    params.set("page", "1"); // genre o'zgarganda sahifa 1 ga qaytariladi
+    setParams(params);
+  };
 
-  const handleChange = (value:number) => {
-      // setpage(value)
-      params.set("page", value.toString())
-      setParams(params)
-
-
-      // params.set("limit","10")
-      // params.set("skip","5")
-      // params.set("genre","animation")
-      
-  }
-  const handleChaneGenre = (value:string) => {
-      params.set("genre",value)
-      setParams(params)
-  }
   return (
-    <div className="Movies mt-[40px]">
-      <div className='container'>
-        <div className='mb-[20px]'>
-        <Select 
-          onChange={handleChaneGenre}
-          className='w-60  bg-[#1a1a1a] [&_.ant-select-selection-placeholder]:!text-gray-400  text-white [&_.ant-select-selector]:!bg-[#1a1a1a] [&_.ant-select-selector]:!text-white activeBorderColor hoverBorderColor multipleItemColorDisabled optionSelectedColor onFocus  ' 
-          placeholder="Genre"
-          options={options}
+    <div className="Movies mt-10  min-h-screen text-white">
+      <div className="container mx-auto px-4">
+        {/* Genre Select */}
+        <div className="mb-6 flex justify-start">
+          <Select
+            onChange={handleChangeGenre}
+            className="w-60 bg-[#1a1a1a] text-white [&_.ant-select-selector]:!bg-[#1a1a1a] [&_.ant-select-selector]:!text-white [&_.ant-select-selection-placeholder]:!text-gray-400"
+            placeholder="Select Genre"
+            options={options}
+            allowClear
           />
         </div>
 
-      <MovieView isLoading={isLoading} data={data?.results}/>
-      <div className='flex justify-center'>
-        <Pagination
+        {/* Movie Grid */}
+        <MovieView isLoading={isLoading} data={data?.results} />
+
+        {/* Pagination */}
+        <div className="flex justify-center mt-6 mb-10">
+<Pagination
         current={Number(page)}
-         onChange={handleChange}
+         onChange={handleChangePage}
          total={data?.total_pages}
          showSizeChanger={false}
          />
-      </div>
+        </div>
       </div>
     </div>
   );

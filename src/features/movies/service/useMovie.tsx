@@ -4,6 +4,7 @@ import { api } from "../../../shared/api"
 interface IParams{
     page?: string
     with_genres?: string
+
 }
 
 export const useMovie = () => {
@@ -31,10 +32,20 @@ export const useMovie = () => {
         queryFn: ()=> api.get(`/movie/${id}/${path }`).then(res => res.data)
     })
 
-    const createMovie = useMutation({
+      const getMovieVideos = (id: number) =>
+    useQuery({
+      queryKey: ["movie-videos", id],
+      queryFn: () => api.get(`/movie/${id}/videos`).then((res) => res.data),
+    })
+    const getMovieCredits = (id: number) =>
+  useQuery({
+    queryKey: ["movie-credits", id],
+    queryFn: () => api.get(`/movie/${id}/credits`).then((res) => res.data),
+  });
+
+     const createMovie = useMutation({
         mutationFn: (data: any)=> api.post("/discover/movie", data)
     })
 
-
-    return {getMovies, createMovie,getMovieById,getMovieByItems,getMovieSimilar}
+    return {getMovies, createMovie,getMovieById,getMovieByItems,getMovieSimilar,getMovieVideos,getMovieCredits}
 }
