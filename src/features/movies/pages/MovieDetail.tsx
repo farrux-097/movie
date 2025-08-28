@@ -28,13 +28,12 @@ const MovieDetail = () => {
           <div className='flex items-center justify-center flex-wrap gap-4 mb-[50px]'>
             {
               images?.backdrops?.slice(0,10)?.map((item:any , index:number) => (
-                // <img key={index} src={`https://image.tmdb.org/t/p/original${item.file_path}`} width={150} alt="" />
                 <Image key={index} src={`https://image.tmdb.org/t/p/original${item.file_path}`} width={150} alt=""/>
               ))
             }
           </div>
           <div>
-            <MovieView data={similarData?.results?.slice(0,8)}/>
+            <MovieView isLoading={isLoading} data={similarData?.results?.slice(0,8)}/>
           </div>
       </div>
     </div>

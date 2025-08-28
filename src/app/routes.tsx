@@ -1,5 +1,6 @@
-import React, { lazy } from "react";
+import React, { lazy, Suspense, } from "react";
 import { useRoutes } from "react-router-dom";
+import LoadingForSuspens from "./LoadingForSuspens";
 
 const MainLayout = lazy(()=> import("../layout/MainLayout"))
 const Home = lazy(()=> import("../features/home/pages/Home"))
@@ -10,7 +11,8 @@ const Search = lazy(()=> import("../features/search/pages/Search"))
 const NotFound = lazy(() => import("../shared/components/NotFound/NotFound"))
 
 const AppRoutes = () => {
-  return useRoutes([
+
+  const routers = useRoutes([
     {
         path: "/",
         element: <MainLayout/>,
@@ -24,6 +26,18 @@ const AppRoutes = () => {
         ]
     }
   ]);
+
+  return (
+     <Suspense fallback={<LoadingForSuspens/>}>
+      {routers}
+    </Suspense>
+  )
+  
+
+ 
+    
+    
+
 };
 
 export default React.memo(AppRoutes);

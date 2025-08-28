@@ -13,7 +13,7 @@ export const useMovie = () => {
         queryFn: ()=> 
             api
                 .get("/discover/movie",{
-                    params:{...params,without_genres:"10749,36,18.99,27"}
+                    params:{...params}
                 })
                 .then(res => res.data)
     })

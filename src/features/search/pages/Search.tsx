@@ -9,13 +9,13 @@ const Search = () => {
     const debouncedValue = useDebounce(value)
     
     const {getMoviesBySearch} = useSearch()
-    const {data} = getMoviesBySearch({query:debouncedValue})
+    const {data, isLoading} = getMoviesBySearch({query:debouncedValue})
   return (
     <div className="container mt-3">
         <div>
           <Input value={value} onChange={(e) => setValue(e.target.value)} placeholder='Search...'/>
           <div className='mt-6'>
-            <MovieView data = {data?.results}/>
+            <MovieView isLoading={isLoading} data = {data?.results}/>
           </div>
         </div>
     </div>

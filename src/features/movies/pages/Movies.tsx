@@ -18,7 +18,7 @@ const Movies = () => {
   const  page = params.get("page") || "1"
   const genre =   params.get("genre") || ""
 
-  const {data} = getMovies({page:page,with_genres:genre})
+  const {data,isLoading} = getMovies({page:page,with_genres:genre})
   const {data:genreData } = getGenres()
   const options = genreData?.genres?.map(({id,name}:any) => ({value: id.toString(),label:name}))
 
@@ -39,15 +39,18 @@ const Movies = () => {
       setParams(params)
   }
   return (
-    <div className="Movies mt-[100px]">
+    <div className="Movies mt-[40px]">
       <div className='container'>
+        <div className='mb-[20px]'>
         <Select 
           onChange={handleChaneGenre}
-          className='W-40 ' 
+          className='w-60  bg-[#1a1a1a] [&_.ant-select-selection-placeholder]:!text-gray-400  text-white [&_.ant-select-selector]:!bg-[#1a1a1a] [&_.ant-select-selector]:!text-white activeBorderColor hoverBorderColor multipleItemColorDisabled optionSelectedColor onFocus  ' 
           placeholder="Genre"
           options={options}
           />
-      <MovieView data={data?.results}/>
+        </div>
+
+      <MovieView isLoading={isLoading} data={data?.results}/>
       <div className='flex justify-center'>
         <Pagination
         current={Number(page)}
